@@ -14,14 +14,11 @@
     margin-top: 30px;
 }
 
+
 .clear{clear:both;}
 
 .entry .close {
     color: #ff0000;
-}
-
-.entry-body {
-    padding: 10px;
 }
 
 .entry-date {
@@ -30,22 +27,15 @@
     color: dimgrey;
 }
 
-.entry {
+
+.card {
     margin-top: 20px;
     margin-bottom: 20px;
-    display: block;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #888888;
-    padding: 10px;
 }
 
 .entry .btn-group {
     width: 10%;
     float:right;
-}
-
-.entry-body {
-    float: left;
 }
 
 .entry-id {
@@ -54,9 +44,6 @@
     float: left;
 }
 
-.entry-image img{
-    max-width: 100%;
-    max-height: 200px;
-    /*display: block;
-    margin: 20px;*/
+.oi {
+    top: 4px;
 }

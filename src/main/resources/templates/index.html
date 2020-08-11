@@ -24,7 +24,7 @@
     <h1 class="center">#Diary App</h1>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal" id="add-button">Add</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#addModal" id="add-button">Add Entry</button>
 
     <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -101,8 +101,8 @@
     <!-- Entries -->
     <div id="entries">
 
-        <div class="entry">
-            <div class="entry-header">
+        <div class="entry card">
+            <div class="entry-header card-header">
                 <div class="entry-id"><h2>1</h2></div>
                 <div class="entry-date"><h2>2020-08-10</h2></div>
                 <div class="btn-group">
@@ -112,8 +112,8 @@
                     <button class="close" onclick="deleteEntry(this);">x</button>
                 </div>
             </div>
-            <div class="entry-body">
-                <div class="entry-text">
+            <div class="entry-body card-body">
+                <div class="entry-text card-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Phasellus eget augue in ligula vulputate blandit sed et odio.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -126,15 +126,16 @@
                     Cras tempor dui sit amet semper egestas. Sed quis libero lacinia, ultrices risus ac, posuere sapien.
                     Quisque fringilla ultricies accumsan. Quisque non fermentum velit.
                 </div>
+                <br>
                 <div class="entry-image">
-                    <img class="mx-auto d-block" src="https://ichef.bbci.co.uk/news/1024/cpsprodpb/151AB/production/_111434468_gettyimages-1143489763.jpg" alt="entry-image"/>
+                    <img class="card-img-top" src="https://ichef.bbci.co.uk/news/1024/cpsprodpb/151AB/production/_111434468_gettyimages-1143489763.jpg" alt="entry-image"/>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
 
-        <div class="entry">
-            <div class="entry-header">
+        <div class="entry card">
+            <div class="entry-header card-header">
                 <div class="entry-id"><h2>2</h2></div>
                 <div class="entry-date"><h2>2020-08-10</h2></div>
                 <div class="btn-group">
@@ -144,8 +145,8 @@
                     <button class="close" onclick="deleteEntry(this);">x</button>
                 </div>
             </div>
-            <div class="entry-body">
-                <div class="entry-text">
+            <div class="entry-body card-body">
+                <div class="entry-text card-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Phasellus eget augue in ligula vulputate blandit sed et odio.
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -158,8 +159,9 @@
                     Cras tempor dui sit amet semper egestas. Sed quis libero lacinia, ultrices risus ac, posuere sapien.
                     Quisque fringilla ultricies accumsan. Quisque non fermentum velit.
                 </div>
+                <br>
                 <div class="entry-image">
-                    <img class="mx-auto d-block" src="https://ichef.bbci.co.uk/news/1024/cpsprodpb/151AB/production/_111434468_gettyimages-1143489763.jpg" alt="entry-image"/>
+                    <img class="card-img-top" src="https://ichef.bbci.co.uk/news/1024/cpsprodpb/151AB/production/_111434468_gettyimages-1143489763.jpg" alt="entry-image"/>
                 </div>
             </div>
             <div class="clear"></div>

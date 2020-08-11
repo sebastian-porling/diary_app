@@ -65,7 +65,7 @@ function setEditFields(element) {
     editDate.value = element.children[0].children[1].innerText;
     editId.value = element.children[0].children[0].innerText;
     editText.value = element.children[1].children[0].innerText;
-    editImage.value = element.children[1].children[1].children[0].src;
+    editImage.value = element.children[1].children[2].children[0].src;
 }
 
 /* ******* Fetching functions ******* */
@@ -128,7 +128,7 @@ function searchEntryDiv(x, start, end, entry) {
 
 function generateEntry(entry) {
     const entryHtml = `
-        <div class="entry-header">
+        <div class="entry-header card-header">
             <div class="entry-id"><h2>${entry.id}</h2></div>
             <div class="entry-date"><h2>${entry.date}</h2></div>
             <div class="btn-group">
@@ -138,8 +138,9 @@ function generateEntry(entry) {
                 <button class="close" onclick="deleteEntry(this);">x</button>
             </div>
         </div>
-        <div class="entry-body">
+        <div class="entry-body card-body">
             <div class="entry-text">${entry.text}</div>
+            <br>
             <div class="entry-image">
                 <img class="mx-auto d-block" src="${entry.image}" alt="entry-image"/>
             </div>
@@ -147,7 +148,7 @@ function generateEntry(entry) {
         <div class="clear"></div>`;
 
     let entryDiv = document.createElement('div');
-    entryDiv.setAttribute('class', 'entry');
+    entryDiv.setAttribute('class', 'entry card');
     entryDiv.innerHTML = entryHtml;
     return entryDiv;
 }
