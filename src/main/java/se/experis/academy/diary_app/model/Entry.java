@@ -21,8 +21,9 @@ public class Entry {
     @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
+    @Lob
     @Column(name = "img", nullable = false)
-    private String img;
+    private char[] img;
 
     @Column(name = "active", nullable = false)
     private boolean active = true ;
@@ -33,7 +34,7 @@ public class Entry {
      * @param date The date for the entry, strings are automatically parsed
      * @param img The image url
      */
-    public Entry(String text, Date date, String img) {
+    public Entry(String text, Date date, char[] img) {
         this.text = text;
         this.date = date;
         this.img = img;
@@ -55,7 +56,7 @@ public class Entry {
         return simpleDateFormat.format(date);
     }
 
-    public String getImg() { return img; }
+    public String getImg() { return new String(img); }
 
     public void setInactive() { active = false;}
 
