@@ -10,6 +10,9 @@ import se.experis.academy.diary_app.repository.EntryRepository;
 
 import java.util.List;
 
+/**
+ * Represents the Entry API
+ */
 @RestController
 @RequestMapping("/api")
 public class EntryController {
@@ -17,6 +20,10 @@ public class EntryController {
     @Autowired
     EntryRepository entryRepository;
 
+    /**
+     * Gets all the active entries and sorts them by date
+     * @return ResponseEntity with all entries and message, or null and message
+     */
     @GetMapping("/entries")
     public ResponseEntity<Response> getEntries() {
         Response response;
@@ -32,6 +39,11 @@ public class EntryController {
         return new ResponseEntity<>(response, status);
     }
 
+    /**
+     * Sets entry as inactive by id
+     * @param id long
+     * @return Response entity with null and message
+     */
     @DeleteMapping("/entry/delete/{id}")
     public ResponseEntity<Response> deleteEntry(@PathVariable("id") long id) {
         Response response;
@@ -49,6 +61,11 @@ public class EntryController {
         return new ResponseEntity<>(response, status);
     }
 
+    /**
+     * Creates and entry
+     * @param entry entry
+     * @return ResponseEntity with entry and message, otherwise null and message
+     */
     @PostMapping("/entry/create")
     public ResponseEntity<Response> addEntry(@RequestBody Entry entry) {
         Entry createdEntry = entryRepository.save(entry);
@@ -57,6 +74,11 @@ public class EntryController {
         return new ResponseEntity<>(response, status);
     }
 
+    /**
+     * Updates the entry
+     * @param entry entry with modifications
+     * @return ResponseEntity with modified entry and message, or null and message
+     */
     @PatchMapping("/entry/update")
     public ResponseEntity<Response> updateEntry(@RequestBody Entry entry) {
         Response response;

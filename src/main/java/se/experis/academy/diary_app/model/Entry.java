@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This class represents an entry as a data object and entity for JPA
+ */
 @Entity(name = "entries")
 public class Entry {
 
@@ -24,6 +27,12 @@ public class Entry {
     @Column(name = "active", nullable = false)
     private boolean active = true ;
 
+    /**
+     * Constructor
+     * @param text The text for the entry
+     * @param date The date for the entry, strings are automatically parsed
+     * @param img The image url
+     */
     public Entry(String text, Date date, String img) {
         this.text = text;
         this.date = date;
@@ -36,12 +45,15 @@ public class Entry {
 
     public String getText() { return text; }
 
+    /**
+     * Parses the date into a formated string
+     * @return date as yyyy-mm-dd
+     */
     public String getDate() {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(date);
     }
-
 
     public String getImg() { return img; }
 

@@ -5,7 +5,7 @@ INSERT INTO entries (date, text, img, active) VALUES
   ('2011-09-10', 'Today I went to the amusement park', 'https://www.visitstockholm.com/globalassets/see-and-do/attractionssevardheter/gronalund_bred.png?preset=detail_medium_retina', true),
   ('2012-02-01', 'I think I will fail the test tomorrow', 'https://www.fastweb.com/uploads/article_photo/photo/2036449/horizontalcropfailSmall.jpg', true),
   ('2013-07-20', 'Someone stole my laptop', 'https://operationwife.com/wp-content/uploads/2014/03/shutterstock_59243428.jpg', true),
-  ('2014-04-10', 'I got a dog', 'https://lh3.googleusercontent.com/proxy/pf8ku3rjvTca6irEUCGVDcvi9XC6-lYgDxrFukRM914k2A0HgTNfL3nDs4HIf9Eb_Xv_wbLCwasbrOvGPkGlQfLrOJ1Aplea7sy2LZbHfi45hDoPIlHE_aAfkf7y7PtS3ehjhU1w67MIfrrHci0uPIt19Q', true),
+  ('2014-04-10', 'I got a dog', 'https://lh3.googleusercontent.com/proxy/pf8ku3rjvTca6irEUCGVDcvi9XC6-https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg', true),
   ('2015-12-24', 'Today we celebrated Christmas', 'https://i.pinimg.com/originals/b3/59/bf/b359bf9d70953283439089b644df591a.jpg', true),
   ('2016-06-06', 'I cannot believe I just graduated high school', 'https://images.rove.me/w_1920,q_85/euqxptesf6bb5edk94ul/sweden-highschool-graduation.jpg', true),
   ('2017-09-01', 'I just started university', 'https://sd.keepcalms.com/i/keep-calm-because-university-started.png', true),
