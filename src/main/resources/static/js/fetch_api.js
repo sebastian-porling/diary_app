@@ -3,6 +3,8 @@ let addForm, addDate, addText, addImage;
 let editForm, editDate, editText, editImage, editId;
 let entriesHtml;
 
+const BASE_URL = location.protocol + '//' + location.host + "/api/";
+
 function initializeGlobalVariables() {
     addForm = document.getElementById('addForm');
     addDate = document.getElementById('date');
@@ -72,7 +74,7 @@ function setEditFields(element) {
 
 function getAll() {
     $.ajax({
-        url: "http://localhost:8080/api/entries",
+        url: BASE_URL + "entries",
         type: 'GET',
         contentType: "application/json",
         success: function(data) {
@@ -87,7 +89,7 @@ function addEntry(date, text, img) {
     let dataObject = {date: date, text: text, img: img};
     console.log("Adding ", dataObject);
     $.ajax({
-        url: "http://localhost:8080/api/entry/create",
+        url: BASE_URL + "entry/create",
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(dataObject),
@@ -103,7 +105,7 @@ function editEntry(id, date, text, img) {
     let dataObject = {id: id, date: date, text: text, img:img}
     console.log("Editing ", dataObject);
     $.ajax({
-        url: "http://localhost:8080/api/entry/update",
+        url: BASE_URL + "entry/update",
         type: 'PATCH',
         contentType: "application/json",
         data: JSON.stringify(dataObject),
@@ -118,8 +120,9 @@ function deleteEntry(element) {
     let parent = element.parentNode.parentNode.parentNode
     let id = parent.children[0].children[0].innerText;
     console.log("Deleting ", id);
+    console.log(location.protocol + '//' + location.host + "/api/entry/delete/"+id)
     $.ajax({
-        url: "http://localhost:8080/api/entry/delete/"+id,
+        url: BASE_URL + "entry/delete/" + id,
         type: 'DELETE',
         contentType: "application/json",
         success: function(data) {
