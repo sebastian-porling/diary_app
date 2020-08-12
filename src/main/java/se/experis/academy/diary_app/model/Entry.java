@@ -1,6 +1,7 @@
 package se.experis.academy.diary_app.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(name = "entries")
@@ -35,7 +36,12 @@ public class Entry {
 
     public String getText() { return text; }
 
-    public Date getDate() { return date; }
+    public String getDate() {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
+    }
+
 
     public String getImg() { return img; }
 
