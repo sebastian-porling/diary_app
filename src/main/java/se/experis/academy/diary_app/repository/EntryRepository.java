@@ -14,14 +14,11 @@ public interface EntryRepository extends CrudRepository<Entry, Long> {
 
     Entry findById(long id);
 
-
     @Override
     void delete(Entry entry);
 
-
     @Override
     <S extends Entry> S save(S s);
-
 
 }
 
