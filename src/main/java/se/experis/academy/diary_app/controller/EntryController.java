@@ -20,7 +20,7 @@ public class EntryController {
     }
 
     @DeleteMapping("/entry/delete/{id}")
-    public void deleteEntry(@PathVariable("id") int id) {
+    public void deleteEntry(@PathVariable("id") long id) {
         if (entryRepository.existsById(id)) {
             Entry entry = entryRepository.findById(id);
             entry.setInactive();
@@ -35,20 +35,20 @@ public class EntryController {
 
     @PostMapping("/entry/update")
     public Entry updateEntry(@RequestBody Entry entry) {
-        if (entryRepository.existsById((int) entry.getId())) return entryRepository.save(entry);
+        if (entryRepository.existsById(entry.getId())) return entryRepository.save(entry);
         return new Entry();
     }
 
-    @PatchMapping("/entries")
+    @PatchMapping("/entry/update")
     public Entry editEntry(@RequestBody Entry entry){
         if(entry.getText() != null){
-            getEntries().text = entry.text;
+            //getEntries().text = entry.text;
         }
         if(entry.getDate() != null){
-            getEntries().date = entry.date;
+            //getEntries().date = entry.date;
         }
         if(entry.getImg() != null){
-            getEntries().img = entry.img;
+            //getEntries().img = entry.img;
         }
         return entryRepository.save(entry);
 
