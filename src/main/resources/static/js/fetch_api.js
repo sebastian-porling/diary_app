@@ -1,6 +1,6 @@
 /* Global variables */
-let addForm, addDate, addText, addImage;
-let editForm, editDate, editText, editImage, editId;
+let addForm, addDate, addText, addImage, addUrl;
+let editForm, editDate, editText, editImage, editId, editUrl;
 let entriesHtml;
 
 const BASE_URL = location.protocol + '//' + location.host + "/api/";
@@ -9,11 +9,13 @@ function initializeGlobalVariables() {
     addForm = document.getElementById('addForm');
     addDate = document.getElementById('date');
     addText = document.getElementById('text');
-    addImage = document.getElementById('image')
+    addImage = document.getElementById('image');
+    addUrl = document.getElementById('url');
     editForm = document.getElementById('editForm');
     editDate = document.getElementById('edit-date');
     editText = document.getElementById('edit-text');
     editImage = document.getElementById('edit-image');
+    editUrl = document.getElementById('edit-url');
     editId = document.getElementById('edit-id');
     entriesHtml = document.getElementById('entries');
 }
@@ -22,29 +24,56 @@ function initializeGlobalVariables() {
 window.addEventListener("load", () => {
     initializeGlobalVariables();
 
+    /**
+     * Takes care of the form submission
+     */
     addForm.addEventListener('submit', (event) => {
         event.preventDefault();
         $('#addModal').modal('hide');
-        var reader = new FileReader();
-        console.log(addImage.files[0]);
-        reader.onload = ((e) => {
-            let img = e.target.result;
-            console.log(img);
-            addEntry(addDate.value, addText.value, img);
-            resetFields(addDate, addText, addImage);
-        });
-        reader.readAsDataURL(addImage.files[0]);
+        let img = addImage.files[0];
+        let url = addUrl.value;
+        if (img != undefined) {
+            var reader = new FileReader();
+            reader.onload = ((e) => {
+                let result = e.target.result;
+                addEntry(addDate.value, addText.value, result);
+                resetFields(addDate, addText, addImage, addUrl);
+            });
+            reader.readAsDataURL(img);
+        } else if (url != ""){
+            addEntry(addDate.value, addText.value, url);
+            resetFields(addDate, addText, addImage, addUrl);
+        } else {
+            addEntry(addDate.value, addText.value, "");
+            resetFields(addDate, addText, addImage, addUrl);
+        }
     });
 
+    /**
+     * Takes care of the form submission
+     */
     editForm.addEventListener('submit', (event) => {
         event.preventDefault();
         $('#editModal').modal('hide');
-        editEntry(editId.value, editDate.value, editText.value, editImage.value);
-        resetFields(editId, editDate, editText, editImage);
+        let img = editImage.files[0];
+        let url = editUrl.value;
+        if (img != undefined) {
+            var reader = new FileReader();
+            reader.onload = ((e) => {
+                let result = e.target.result;
+                editEntry(editId.value, editDate.value, editText.value, result);
+            });
+            reader.readAsDataURL(img);
+        } else if (url != ""){
+            editEntry(editId.value, editDate.value, editText.value, url);
+            resetFields(editId, editDate, editText, editImage, editUrl);
+        } else {
+            editEntry(editId.value, editDate.value, editText.value, "");
+            resetFields(editId, editDate, editText, editImage, editUrl);
+        }
     });
+
 });
-
-
 
 /**
  * Resets a input field
@@ -65,20 +94,35 @@ function checkEmptyField(...args) {
     return false;
 }
 
+/**
+ * Sets the edit fields and shows the edit modal
+ * @param element edit button
+ */
 function showEditEntry(element) {
     setEditFields(element.parentNode.parentNode.parentNode);
     $('#editModal').modal('show');
 }
 
+/**
+ * Sets all the fields for the edit modal
+ * Url field will be empty if base64
+ * @param element edit button
+ */
 function setEditFields(element) {
     editDate.value = element.children[0].children[1].innerText;
     editId.value = element.children[0].children[0].innerText;
     editText.value = element.children[1].children[0].innerText;
-    editImage.value = element.children[1].children[2].children[0].src;
+    let url = element.children[1].children[2].children[0].src;
+    if (!url.startsWith("data:image")) {
+        editUrl.value = url;
+    }
 }
 
 /* ******* Fetching functions ******* */
 
+/**
+ * Fetches all entries and generates them to the HTML doc
+ */
 function getAll() {
     $.ajax({
         url: BASE_URL + "entries",
@@ -91,6 +135,12 @@ function getAll() {
     });
 }
 
+/**
+ * Creates an entry to the database and fetches the new entries
+ * @param date
+ * @param text
+ * @param img
+ */
 function addEntry(date, text, img) {
     if(checkEmptyField(date, text, img)) return;
     let dataObject = {date: date, text: text, img: img};
@@ -107,6 +157,13 @@ function addEntry(date, text, img) {
     });
 }
 
+/**
+ * Modifies an entry on database and fetches the new list
+ * @param id
+ * @param date
+ * @param text
+ * @param img
+ */
 function editEntry(id, date, text, img) {
     if(checkEmptyField(id, date, text, img)) return;
     let dataObject = {id: id, date: date, text: text, img:img}
@@ -123,6 +180,10 @@ function editEntry(id, date, text, img) {
     });
 }
 
+/**
+ * Sets entry as inactive and removes it from the document
+ * @param element Delete button
+ */
 function deleteEntry(element) {
     let parent = element.parentNode.parentNode.parentNode
     let id = parent.children[0].children[0].innerText;
@@ -135,15 +196,14 @@ function deleteEntry(element) {
         success: function(data) {
             parent.parentNode.removeChild(parent);
         },
-        fail: (err) => console.log("Couldn't delete contact", err)
+        fail: (err) => console.log("Couldn't delete entry", err)
     });
-
 }
 
-function addToEntries(entry) {
-    entriesHtml.appendChild(generateEntry(entry));
-}
-
+/**
+ * Generates multiple DIV entries
+ * @param entries entries to generate
+ */
 function updateEntries(entries) {
     entriesHtml.innerHTML = "";
     entries.forEach(entry => {
@@ -151,25 +211,11 @@ function updateEntries(entries) {
     });
 }
 
-function editEntryDiv(entry) {
-    if (searchEntryDiv(entry.id, 0, entriesHtml.children.length-1, entry)){
-        console.log("found!");
-    }
-}
-
-function searchEntryDiv(x, start, end, entry) {
-    if (start > end) return false;
-    let mid=Math.floor((start + end)/2);
-    if (entriesHtml.children[mid].children[0].children[0].innerText==x) {
-        entriesHtml.children[mid].replaceWith(generateEntry(entry));
-        return true;
-    }
-    if(entriesHtml.children[mid].children[0].children[0].innerText > x)
-        return searchEntryDiv(x, start, mid-1, entry);
-    else
-        return searchEntryDiv(x, mid+1, end, entry);
-}
-
+/**
+ * Generates one entry div
+ * @param entry the entry to generate
+ * @returns {HTMLDivElement} HTML object with entry information
+ */
 function generateEntry(entry) {
     const entryHtml = `
         <div class="entry-header card-header">
@@ -195,13 +241,4 @@ function generateEntry(entry) {
     entryDiv.setAttribute('class', 'entry card');
     entryDiv.innerHTML = entryHtml;
     return entryDiv;
-}
-
-/**
- * Appends the children to the parent
- * @param parent HTML Element
- * @param children and number of HTML elements.
- */
-function appendChildren(parent, ...children) {
-    children.forEach(child => parent.appendChild(child));
 }
