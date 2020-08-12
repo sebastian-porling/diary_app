@@ -34,8 +34,8 @@ It has the following properties:
 |----|----|----|
 |id|long|primary|
 |date|Date|not null|
-|text|String|not null|
-|image|String|not null|
+|text|String (TEXT)|not null|
+|image|char[]|not null|
 |active|boolean|not null default true|
 
 The **WebController** handles the request for the index page.
