@@ -25,8 +25,15 @@ window.addEventListener("load", () => {
     addForm.addEventListener('submit', (event) => {
         event.preventDefault();
         $('#addModal').modal('hide');
-        addEntry(addDate.value, addText.value, addImage.value);
-        resetFields(addDate, addText, addImage);
+        var reader = new FileReader();
+        console.log(addImage.files[0]);
+        reader.onload = ((e) => {
+            let img = e.target.result;
+            console.log(img);
+            addEntry(addDate.value, addText.value, img);
+            resetFields(addDate, addText, addImage);
+        });
+        reader.readAsDataURL(addImage.files[0]);
     });
 
     editForm.addEventListener('submit', (event) => {
