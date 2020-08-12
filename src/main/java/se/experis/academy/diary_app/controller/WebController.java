@@ -1,7 +1,10 @@
 package se.experis.academy.diary_app.controller;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import se.experis.academy.diary_app.model.Entry;
+import se.experis.academy.diary_app.repository.EntryRepository;
+import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WebController {
 
+    @Autowired
+    EntryRepository entryRepository;
 
     /**
      * Gets contacts and returns them to index.html
@@ -18,6 +23,10 @@ public class WebController {
      */
     @GetMapping("/")
     public String index(Model model) {
+        List<Entry> entries = entryRepository.findByActiveTrue();
+        model.addAttribute("entries", entries);
         return "index";
     }
+
 }
+
