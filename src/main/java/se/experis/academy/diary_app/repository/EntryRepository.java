@@ -8,11 +8,11 @@ import se.experis.academy.diary_app.model.Entry;
 import java.util.List;
 
 @Repository
-public interface EntryRepository extends CrudRepository<Entry, Integer> {
+public interface EntryRepository extends CrudRepository<Entry, Long> {
 
     List<Entry> findByActiveTrue();
 
-    Entry findById(int id);
+    Entry findById(long id);
 
 
     @Override
