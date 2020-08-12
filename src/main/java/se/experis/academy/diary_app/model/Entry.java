@@ -18,7 +18,7 @@ public class Entry {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
     @Column(name = "img", nullable = false)
