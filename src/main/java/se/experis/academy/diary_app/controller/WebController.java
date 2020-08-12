@@ -23,7 +23,7 @@ public class WebController {
      */
     @GetMapping("/")
     public String index(Model model) {
-        List<Entry> entries = entryRepository.findByActiveTrue();
+        List<Entry> entries = entryRepository.findByActiveTrueOrderByDateDesc();
         model.addAttribute("entries", entries);
         return "index";
     }
