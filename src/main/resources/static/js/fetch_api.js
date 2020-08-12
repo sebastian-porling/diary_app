@@ -92,7 +92,7 @@ function addEntry(date, text, img) {
         contentType: "application/json",
         data: JSON.stringify(dataObject),
         success: function(data) {
-            addToEntries(data.data)
+            getAll();
         },
         fail: (err) => console.log("Couldn't create contact " + dataObject, err)
     });
@@ -108,7 +108,7 @@ function editEntry(id, date, text, img) {
         contentType: "application/json",
         data: JSON.stringify(dataObject),
         success: function(data) {
-            editEntryDiv(data.data);
+            getAll();
         },
         fail: (err) => console.log("Couldn't update contact " + dataObject, err)
     });

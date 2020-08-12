@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface EntryRepository extends CrudRepository<Entry, Long> {
 
-    List<Entry> findByActiveTrue();
+    List<Entry> findByActiveTrueOrderByDateDesc();
 
     Entry findById(long id);
 

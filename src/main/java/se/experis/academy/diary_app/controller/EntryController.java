@@ -21,7 +21,7 @@ public class EntryController {
     public ResponseEntity<Response> getEntries() {
         Response response;
         HttpStatus status;
-        List<Entry> entries = entryRepository.findByActiveTrue();
+        List<Entry> entries = entryRepository.findByActiveTrueOrderByDateDesc();
         if (entries != null && !entries.isEmpty()){
             response = new Response(entries, "SUCCESS");
             status = HttpStatus.OK;
