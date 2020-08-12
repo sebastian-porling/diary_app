@@ -71,29 +71,63 @@ function setEditFields(element) {
 /* ******* Fetching functions ******* */
 
 function getAll() {
-    /* Make fetch */
+    $.ajax({
+        url: "http://localhost:8080/api/entries",
+        type: 'GET',
+        contentType: "application/json",
+        success: function(data) {
+            updateEntries(data.data);
+        },
+        fail: (err) => console.log("Couldn't get contacts ", err)
+    });
 }
 
-function addEntry(date, text, image) {
-    if(checkEmptyField(date, text, image)) return;
-    let dataObject = {date: date, text: text, image: image};
-    /* Make fetch */
-    let entry = {id: 41, date: date, text: text, image: image};
-    addToEntries(entry);
+function addEntry(date, text, img) {
+    if(checkEmptyField(date, text, img)) return;
+    let dataObject = {date: date, text: text, img: img};
+    console.log("Adding ", dataObject);
+    $.ajax({
+        url: "http://localhost:8080/api/entry/create",
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify(dataObject),
+        success: function(data) {
+            addToEntries(data.data)
+        },
+        fail: (err) => console.log("Couldn't create contact " + dataObject, err)
+    });
 }
 
-function editEntry(id, date, text, image) {
-    if(checkEmptyField(id, date, text, image)) return;
-    let dataObject = {id: id, date: date, text: text, image:image}
-    /* Make fetch */
-    editEntryDiv(dataObject);
+function editEntry(id, date, text, img) {
+    if(checkEmptyField(id, date, text, img)) return;
+    let dataObject = {id: id, date: date, text: text, img:img}
+    console.log("Editing ", dataObject);
+    $.ajax({
+        url: "http://localhost:8080/api/entry/update",
+        type: 'PATCH',
+        contentType: "application/json",
+        data: JSON.stringify(dataObject),
+        success: function(data) {
+            editEntryDiv(data.data);
+        },
+        fail: (err) => console.log("Couldn't update contact " + dataObject, err)
+    });
 }
 
 function deleteEntry(element) {
     let parent = element.parentNode.parentNode.parentNode
     let id = parent.children[0].children[0].innerText;
-    /* Make fetch */
-    parent.parentNode.removeChild(parent);
+    console.log("Deleting ", id);
+    $.ajax({
+        url: "http://localhost:8080/api/entry/delete/"+id,
+        type: 'DELETE',
+        contentType: "application/json",
+        success: function(data) {
+            parent.parentNode.removeChild(parent);
+        },
+        fail: (err) => console.log("Couldn't delete contact", err)
+    });
+
 }
 
 function addToEntries(entry) {
@@ -142,7 +176,7 @@ function generateEntry(entry) {
             <div class="entry-text">${entry.text}</div>
             <br>
             <div class="entry-image">
-                <img class="mx-auto d-block" src="${entry.image}" alt="entry-image"/>
+                <img class="card-img-top" src="${entry.img}" alt="entry-img"/>
             </div>
         </div>
         <div class="clear"></div>`;
