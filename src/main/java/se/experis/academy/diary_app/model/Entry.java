@@ -23,8 +23,7 @@ public class Entry {
     @Column(name = "active", nullable = false)
     private boolean active = true ;
 
-    public Entry(long id, String text, Date date, String img) {
-        this.id = id;
+    public Entry(String text, Date date, String img) {
         this.text = text;
         this.date = date;
         this.img = img;
@@ -32,20 +31,15 @@ public class Entry {
 
     public Entry() { }
 
-    public long getId() {
-        return id; }
+    public long getId() { return id; }
 
-    public String getText() {
-        return text; }
+    public String getText() { return text; }
 
-    public Date getDate() {
-        return date; }
+    public Date getDate() { return date; }
 
-    public String getImg() {
-        return img; }
+    public String getImg() { return img; }
 
-    public void setInactive() {
-        active = false;}
+    public void setInactive() { active = false;}
 
     @Override
     public String toString() {
